@@ -9,8 +9,11 @@ app.disable('x-powered-by');
 if (process.env.NODE_ENV === "development") app.use(morgan("dev"));
 app.use(bodyParser.json());
 
-const bankRoutes = require('./src/routes/routes');
-app.use('/account', bankRoutes);
+const accountRoutes = require('./src/routes/accounts');
+app.use('/accounts', accountRoutes);
+
+const transactionRoutes = require('./src/routes/transactions');
+app.use('/accounts/:account_id/transactions', transactionRoutes);
 
 app.use((err, req, res, next) => {
   const status = err.status || 500;
